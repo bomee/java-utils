@@ -60,7 +60,7 @@ public class Securities {
      * @return 字节数组
      */
     public static byte[] hmacMD5(byte[] bytes, byte[] key) {
-        return hamc(bytes, "HmacMD5", key);
+        return hmac(bytes, "HmacMD5", key);
     }
 
     /**
@@ -71,7 +71,7 @@ public class Securities {
      * @return 字节数组
      */
     public static byte[] hmacSha1(byte[] bytes, byte[] key) {
-        return hamc(bytes, "HmacSHA1", key);
+        return hmac(bytes, "HmacSHA1", key);
     }
 
     /**
@@ -82,7 +82,7 @@ public class Securities {
      * @return 字节数组
      */
     public static byte[] hmacSha256(byte[] bytes, byte[] key) {
-        return hamc(bytes, "HmacSHA256", key);
+        return hmac(bytes, "HmacSHA256", key);
     }
 
     /**
@@ -93,7 +93,7 @@ public class Securities {
      * @return 字节数组
      */
     public static byte[] hmacSha512(byte[] bytes, byte[] key) {
-        return hamc(bytes, "HmacSHA512", key);
+        return hmac(bytes, "HmacSHA512", key);
     }
 
     /**
@@ -186,7 +186,7 @@ public class Securities {
         }
     }
 
-    private static byte[] hamc(byte[] input, String algorithm, byte[] key) {
+    private static byte[] hmac(byte[] input, String algorithm, byte[] key) {
         try {
             SecretKey secretKey = new SecretKeySpec(key, algorithm);
             Mac mac = Mac.getInstance(algorithm);
