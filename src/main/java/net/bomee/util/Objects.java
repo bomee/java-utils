@@ -6,9 +6,7 @@ import java.lang.reflect.Modifier;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 /**
  * Object 常用操作集合
@@ -50,7 +48,7 @@ public class Objects {
     }
 
     /**
-     * 通过反射的方式复制值对象间的同名字段，在做PlainObject的转换时可简化操作，但性能不佳
+     * 通过反射的方式复制值对象间的同名字段，在做PlainObject的转换时可简化操作
      *
      * @param src          源
      * @param dest         目标
@@ -61,22 +59,11 @@ public class Objects {
             return;
         }
 
-        Function<Class<?>, Map<String, Field>> parseFields = clazz -> {
-            Map<String, Field> fieldMap = new HashMap<>();
-            while (!clazz.equals(Object.class)) {
-                for (Field declaredField : clazz.getDeclaredFields()) {
-                    fieldMap.put(declaredField.getName(), declaredField);
-                }
-                clazz = clazz.getSuperclass();
-            }
-            for (String ignoreField : ignoreFields) {
-                fieldMap.remove(ignoreField);
-            }
-            return fieldMap;
-        };
-
-        Map<String, Field> srcFieldMap = parseFields.apply(src.getClass());
-        Map<String, Field> destFieldMap = parseFields.apply(dest.getClass());
+        Map<String, Field> srcFieldMap = Reflects.getAllDeclaredFields(src.getClass());
+        Map<String, Field> destFieldMap = Reflects.getAllDeclaredFields(dest.getClass());
+        for (String ignoreField : ignoreFields) {
+            destFieldMap.remove(ignoreField);
+        }
 
         destFieldMap.forEach((name, destField) -> {
             try {
