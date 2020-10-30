@@ -1,5 +1,9 @@
 package net.bomee.util;
 
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * String 常用操作集合
  *
@@ -45,5 +49,75 @@ public abstract class Strings {
      */
     public static String toString(Object object) {
         return object == null ? "" : object.toString();
+    }
+
+    /**
+     * 随机字符串
+     *
+     * @param length 随机长度
+     * @return 随机字符串
+     */
+    public static String random(int length) {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        char[] candidate = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
+        char[] chars = new char[length];
+        for (int i = 0; i < length; i++) {
+            chars[i] = candidate[random.nextInt(candidate.length)];
+        }
+        return new String(chars);
+    }
+
+    /**
+     * 重复字符串
+     *
+     * @param str   被重复的字符串
+     * @param times 重复次数
+     * @return 重复字符串 str * times
+     */
+    public static String repeat(String str, int times) {
+        if (times <= 1) {
+            return str;
+        }
+        return Stream.generate(() -> str).limit(times).collect(Collectors.joining());
+    }
+
+    /**
+     * 为字符串进行打码, *占位数最大为4
+     * <pre>
+     *     mask("13812341234", 3, 4) -> "138****1234"
+     *     mask("123456", 3, 4) -> "1****6"
+     *     mask("12345", 3, 4) -> "1***5"
+     *     mask("1234", 3, 4) -> "1**4"
+     *     mask("123", 3, 4) -> "1*3"
+     *     mask("12", 3, 4) -> "**"
+     *     mask("1", 3, 4) -> "*"
+     * </pre>
+     *
+     * @param str                原始字符串
+     * @param retainPrefixLength 首部保留的长度
+     * @param retainSuffixLength 尾部保留的长度
+     * @return 打码后的字符串
+     */
+    public static String mask(String str, int retainPrefixLength, int retainSuffixLength) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        int length = str.length();
+        if (length <= 2) {
+            return repeat("*", length);
+        }
+        int maskLength = 4;
+        while (retainPrefixLength + maskLength + retainSuffixLength > length) {
+            if (retainSuffixLength > 1) {
+                retainSuffixLength--;
+            } else if (retainPrefixLength > 1) {
+                retainPrefixLength--;
+            } else if (maskLength > 1) {
+                maskLength--;
+            } else {
+                break;
+            }
+        }
+        return str.substring(0, retainPrefixLength) + repeat("*", maskLength) + str.substring(length - retainSuffixLength, length);
     }
 }
