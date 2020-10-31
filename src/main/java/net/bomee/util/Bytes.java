@@ -17,7 +17,7 @@ public class Bytes {
      * @param bytes 字节数组
      * @return 16进制字符串
      */
-    public static String byte2Hex(byte[] bytes) {
+    public static String byteToHex(byte[] bytes) {
         Formatter formatter = new Formatter(new StringBuilder(bytes.length * 2));
         for (byte b : bytes) {
             formatter.format("%02x", b);
@@ -31,7 +31,7 @@ public class Bytes {
      * @param hex 16进制字符串
      * @return 字节数组
      */
-    public static byte[] hex2Byte(String hex) {
+    public static byte[] hexToByte(String hex) {
         int len = hex.length();
         byte[] bytes = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
@@ -46,7 +46,7 @@ public class Bytes {
      * @param bytes 字节数组
      * @return UTF-8字符串
      */
-    public static String byte2String(byte[] bytes) {
+    public static String byteToUTF8String(byte[] bytes) {
         return new String(bytes, StandardCharsets.UTF_8);
     }
 
@@ -56,7 +56,7 @@ public class Bytes {
      * @param str 字符串
      * @return UTF-8字节数组
      */
-    public static byte[] string2Byte(String str) {
+    public static byte[] stringToUTF8Byte(String str) {
         return str.getBytes(StandardCharsets.UTF_8);
     }
 
@@ -66,7 +66,7 @@ public class Bytes {
      * @param bytes 字节数组
      * @return base64字符串
      */
-    public static String byte2Base64String(byte[] bytes) {
+    public static String byteToBase64String(byte[] bytes) {
         return Base64.getEncoder().encodeToString(bytes);
     }
 
@@ -76,7 +76,7 @@ public class Bytes {
      * @param base64 base64字符串
      * @return 字节数组
      */
-    public static byte[] base64String2Byte(String base64) {
+    public static byte[] base64StringToByte(String base64) {
         return Base64.getDecoder().decode(base64);
     }
 }
