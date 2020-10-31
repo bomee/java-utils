@@ -11,7 +11,7 @@ import java.security.spec.X509EncodedKeySpec;
  *
  * @author bomee shiaupo@qq.com
  */
-public class Securities {
+public final class Securities {
     /**
      * MD5
      *

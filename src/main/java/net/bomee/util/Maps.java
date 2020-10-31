@@ -9,7 +9,7 @@ import java.util.Map;
  *
  * @author bomee shiaupo@qq.com
  */
-public class Maps {
+public final class Maps {
 
     /**
      * 安全获取map的类型化值

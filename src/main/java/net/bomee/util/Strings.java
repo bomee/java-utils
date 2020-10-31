@@ -9,7 +9,7 @@ import java.util.stream.Stream;
  *
  * @author bomee shiaupo@qq.com
  */
-public abstract class Strings {
+public final class Strings {
     /**
      * 是否为空字符串
      *

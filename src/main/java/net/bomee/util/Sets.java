@@ -9,7 +9,7 @@ import java.util.Set;
  *
  * @author bomee shiaupo@qq.com
  */
-public class Sets {
+public final class Sets {
 
     /**
      * 根据多个值快速创建一个Set

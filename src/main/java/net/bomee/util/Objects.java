@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author bomee shiaupo@qq.com
  */
-public class Objects {
+public final class Objects {
 
     /**
      * 判断一个对象是否为空，当出现以下情况中的一种时返回true

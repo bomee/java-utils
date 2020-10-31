@@ -5,7 +5,7 @@ package net.bomee.util;
  *
  * @author bomee shiaupo@qq.com
  */
-public abstract class Numbers {
+public final class Numbers {
 
     /**
      * 安全的获取Number的值，如果为null则返回defaultValue

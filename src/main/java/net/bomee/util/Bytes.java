@@ -9,7 +9,7 @@ import java.util.Formatter;
  *
  * @author bomee shiaupo@qq.com
  */
-public class Bytes {
+public final class Bytes {
 
     /**
      * 字节数组转16进制字符串
