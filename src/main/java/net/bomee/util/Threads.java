@@ -28,22 +28,22 @@ public final class Threads {
     private static volatile HookThread hookThread;
 
     /**
-     * 异步执行
+     * 使用CompletableFuture异步执行
      *
      * @param runnable Runnable
      * @return Future<Void>
      */
-    public static Future<Void> runAsync(Runnable runnable) {
+    public static CompletableFuture<Void> runAsync(Runnable runnable) {
         return CompletableFuture.runAsync(runnable);
     }
 
     /**
-     * 异步执行并忽略异常
+     * 使用CompletableFuture异步执行并忽略异常
      *
      * @param runnable ExceptionRunnable
      * @return Future<Void>
      */
-    public static Future<Void> runAsyncIgnoreException(ExceptionRunnable runnable) {
+    public static CompletableFuture<Void> runAsyncIgnoreException(ExceptionRunnable runnable) {
         return CompletableFuture.runAsync(() -> {
             try {
                 runnable.run();
