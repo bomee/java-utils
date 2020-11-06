@@ -3,7 +3,7 @@ package net.bomee.util;
 /**
  * 常用前置条件判断
  *
- * @author bomee yuxiaobo@23mofang.com
+ * @author bomee shiaupo@qq.com
  */
 public class Predicates {
 
