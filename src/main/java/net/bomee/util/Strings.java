@@ -52,6 +52,80 @@ public final class Strings {
     }
 
     /**
+     * 字符串截取(第一组满足条件）
+     *
+     * @param src    原字符串
+     * @param prefix 截取的前缀开头
+     * @param suffix 截取的后缀结尾
+     * @return 截取的字符串（不含前后缀），不匹配则返回null
+     */
+    public static String sub(String src, String prefix, String suffix) {
+        if (src == null) {
+            return null;
+        }
+        int startOffset = prefix == null ? 0 : src.indexOf(prefix);
+        if (startOffset < 0) {
+            return null;
+        }
+
+        int endOffset = suffix == null ? src.length() : src.indexOf(suffix, startOffset);
+
+        return endOffset < startOffset
+                ? null
+                : src.substring(startOffset + (prefix == null ? 0 : prefix.length()), endOffset);
+    }
+
+    /**
+     * 截取最后一组满足条件的字符串
+     *
+     * @param src    原字符串
+     * @param prefix 截取的前缀开头
+     * @param suffix 截取的后缀结尾
+     * @return 截取的字符串（不含前后缀），不匹配则返回null
+     */
+    public static String subLast(String src, String prefix, String suffix) {
+        if (src == null) {
+            return null;
+        }
+
+        int endOffset = suffix == null ? src.length() : src.lastIndexOf(suffix);
+        if (endOffset < 0) {
+            return null;
+        }
+        int startOffset = prefix == null ? 0 : src.substring(0, endOffset).lastIndexOf(prefix);
+
+        endOffset = suffix == null ? src.length() : src.indexOf(suffix, startOffset);
+
+        return startOffset < 0 || endOffset < startOffset
+                ? null
+                : src.substring(startOffset + (prefix == null ? 0 : prefix.length()), endOffset);
+    }
+
+    /**
+     * 头部填充指定字符（本身已达到长度则不填充）
+     *
+     * @param str     被填充的字符串
+     * @param length  填充后的长度
+     * @param padChar 填充字符
+     * @return 填充后字符串
+     */
+    public static String paddingStart(String str, int length, char padChar) {
+        return str != null && length > str.length() ? repeat(String.valueOf(padChar), length - str.length()) + str : str;
+    }
+
+    /**
+     * 尾部填充指定字符（本身已达到长度则不填充）
+     *
+     * @param str     被填充的字符串
+     * @param length  填充后的长度
+     * @param padChar 填充字符
+     * @return 填充后字符串
+     */
+    public static String paddingEnd(String str, int length, char padChar) {
+        return str != null && length > str.length() ? str + repeat(String.valueOf(padChar), length - str.length()) : str;
+    }
+
+    /**
      * 随机字符串
      *
      * @param length 随机长度

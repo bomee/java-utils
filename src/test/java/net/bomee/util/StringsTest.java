@@ -55,4 +55,51 @@ public class StringsTest {
     public void testRandom() {
         assertEquals(6, Strings.random(6).length());
     }
+
+    @Test
+    public void sub() {
+        assertEquals("b", Strings.sub("abc", "a", "c"));
+        assertEquals("", Strings.sub("abc", "a", "b"));
+
+        assertEquals("d", Strings.sub("abcda", "c", "a"));
+
+        assertEquals("a", Strings.sub("abc", null, "b"));
+        assertEquals("bc", Strings.sub("abc", "a", null));
+        assertEquals("abc", Strings.sub("abc", null, null));
+        assertNull(Strings.sub("abc", "a", "d"));
+        assertNull(Strings.sub("abc", "d", "c"));
+
+        assertNull(Strings.sub("abc", "c", "a"));
+    }
+
+    @Test
+    public void subLast() {
+        assertEquals("b", Strings.subLast("abc", "a", "c"));
+        assertEquals("", Strings.subLast("abc", "a", "b"));
+        assertEquals("a", Strings.subLast("abc", null, "b"));
+        assertEquals("bc", Strings.subLast("abc", "a", null));
+        assertEquals("abc", Strings.subLast("abc", null, null));
+        assertNull(Strings.subLast("abc", "a", "d"));
+        assertNull(Strings.subLast("abc", "d", "c"));
+
+        assertNull(Strings.subLast("abc", "c", "a"));
+
+        assertEquals("d", Strings.subLast("abcadc", "a", "c"));
+        assertEquals("b", Strings.subLast("abcad", "a", "c"));
+        assertEquals("b", Strings.subLast("abcdc", "a", "c"));
+    }
+
+    @Test
+    public void paddingStart() {
+        assertEquals("****a", Strings.paddingStart("a", 5, '*'));
+        assertEquals("abcde", Strings.paddingStart("abcde", 5, '*'));
+        assertNull(Strings.paddingStart(null, 5, '*'));
+    }
+
+    @Test
+    public void paddingEnd() {
+        assertEquals("a****", Strings.paddingEnd("a", 5, '*'));
+        assertEquals("abcde", Strings.paddingEnd("abcde", 5, '*'));
+        assertNull(Strings.paddingEnd(null, 5, '*'));
+    }
 }
