@@ -1,5 +1,6 @@
 package net.bomee.util;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Formatter;
@@ -48,6 +49,17 @@ public final class Bytes {
      */
     public static String byteToUTF8String(byte[] bytes) {
         return new String(bytes, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * 将字节数组转换为字符串
+     *
+     * @param bytes       字节数组
+     * @param charsetName 字符编码
+     * @return 字符串
+     */
+    public static String byteToString(byte[] bytes, String charsetName) {
+        return new String(bytes, Charset.forName(charsetName));
     }
 
     /**
