@@ -5,6 +5,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.zip.CRC32;
 
 /**
  * Hash/散列，对称加密，非对称加密等安全相关的操作集合
@@ -12,6 +13,19 @@ import java.security.spec.X509EncodedKeySpec;
  * @author bomee shiaupo@qq.com
  */
 public final class Securities {
+
+    /**
+     * CRC32 Checksum
+     *
+     * @param bytes 输入字节流
+     * @return Checksum
+     */
+    public static long crc32(byte[] bytes) {
+        CRC32 crc32 = new CRC32();
+        crc32.update(bytes, 0, bytes.length);
+        return crc32.getValue();
+    }
+
     /**
      * MD5
      *
