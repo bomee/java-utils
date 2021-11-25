@@ -9,7 +9,6 @@ public class StringsTest {
     @Test
     public void isEmpty() {
         assertTrue(Strings.isEmpty(""));
-        assertTrue(Strings.isEmpty(null));
         assertFalse(Strings.isEmpty("a"));
     }
 
@@ -101,5 +100,11 @@ public class StringsTest {
         assertEquals("a****", Strings.paddingEnd("a", 5, '*'));
         assertEquals("abcde", Strings.paddingEnd("abcde", 5, '*'));
         assertNull(Strings.paddingEnd(null, 5, '*'));
+    }
+
+    @Test
+    public void regexSubstring() {
+        assertEquals("bomee", Strings.regexSubstring("I'm (\\w+)\\b", "I'm bomee"));
+        assertEquals("18", Strings.regexSubstring(" (\\d+) years", "I am 18 years old."));
     }
 }

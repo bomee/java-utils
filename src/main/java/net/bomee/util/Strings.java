@@ -1,6 +1,8 @@
 package net.bomee.util;
 
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -193,5 +195,30 @@ public final class Strings {
             }
         }
         return str.substring(0, retainPrefixLength) + repeat("*", maskLength) + str.substring(length - retainSuffixLength, length);
+    }
+
+    /**
+     * 正则截取字符串
+     *
+     * @param regex   正则表达式，默认取group(1)的值
+     * @param content 被截取的文本
+     * @return 匹配的内容
+     */
+    public static String regexSubstring(String regex, String content) {
+        return regexSubstring(regex, content, 1);
+    }
+
+    /**
+     * 正则窃取字符串
+     *
+     * @param regex   正则表达式
+     * @param content 被截取的文本
+     * @param group   截取内容所在group
+     * @return 截取的内容
+     */
+    public static String regexSubstring(String regex, String content, int group) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(content);
+        return matcher.find() ? matcher.group(group) : null;
     }
 }

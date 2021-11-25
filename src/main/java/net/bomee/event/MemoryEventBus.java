@@ -20,6 +20,12 @@ public class MemoryEventBus implements EventBus {
 
     @Override
     public void register(EventHandler<? extends Event> handler) {
+        if (handler == null) {
+            throw new IllegalArgumentException("handler must not be null.");
+        }
+        if (exists(handler)) {
+            return;
+        }
         registerHandlers.add(new SupportedEventHandlerAdaptor(handler));
         registerHandlers.sort((adaptorA, adaptorB) -> {
             EventHandler<? super Event> a = adaptorA.getEventHandler();
@@ -27,6 +33,23 @@ public class MemoryEventBus implements EventBus {
             return (a instanceof Ordered ? ((Ordered) a).getOrder() : Ordered.NORMAL_PRIORITY)
                     - (b instanceof Ordered ? ((Ordered) b).getOrder() : Ordered.NORMAL_PRIORITY);
         });
+    }
+
+    @Override
+    public boolean unregister(EventHandler<? extends Event> handler) {
+        if (handler == null) {
+            throw new IllegalArgumentException("handler must not be null.");
+        }
+
+        if (exists(handler)) {
+            registerHandlers.remove(new SupportedEventHandlerAdaptor(handler));
+            return true;
+        }
+        return false;
+    }
+
+    private boolean exists(EventHandler<? extends Event> handler) {
+        return registerHandlers.stream().anyMatch(handlerAdaptor -> handlerAdaptor.getEventHandler().equals(handler));
     }
 
     @Override

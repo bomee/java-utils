@@ -9,18 +9,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class MemoryEventBusTest {
-
-    @Test
-    public void test() throws InterruptedException {
-        MemoryEventBus.GLOBAL.register(new TestEventHandler());
-        MemoryEventBus.GLOBAL.register(new TestEventAsyncHandler());
-        TestEvent event = new TestEvent();
-        MemoryEventBus.GLOBAL.publish(event);
-        assertEquals(1, event.getHandled().size());
-        Thread.sleep(3000);
-        assertEquals(2, event.getHandled().size());
-    }
-
     @Test
     public void test_handler_order() {
         TestEventHandler eventHandler = new TestEventHandler();
