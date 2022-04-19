@@ -5,9 +5,18 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * 常见的IO操作
+ *
  * @author bomee shiaupo@qq.com
  */
 public final class IOs {
+    private IOs() {
+    }
+
+    /**
+     * 默认 buffer size，8k
+     */
+    private static final int DEFAULT_BUFFER_SIZE = 1024 * 8;
 
     /**
      * read stream to byte
@@ -20,7 +29,7 @@ public final class IOs {
     public static byte[] readToByteArray(InputStream input, int bufferSize) throws IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         byte[] buffer = new byte[bufferSize];
-        int count = 0;
+        int count;
         while ((count = input.read(buffer)) != -1) {
             output.write(buffer, 0, count);
         }
@@ -28,14 +37,14 @@ public final class IOs {
     }
 
     /**
-     * read stream to byte with default buffer size(4k).
+     * read stream to byte with default buffer size.
      *
      * @param input InputStream
      * @return byte array
      * @throws IOException IOException
      */
     public static byte[] readToByteArray(InputStream input) throws IOException {
-        return readToByteArray(input, 1024 * 4);
+        return readToByteArray(input, DEFAULT_BUFFER_SIZE);
     }
 
     /**

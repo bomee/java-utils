@@ -11,6 +11,8 @@ import java.util.Formatter;
  * @author bomee shiaupo@qq.com
  */
 public final class Bytes {
+    private Bytes() {
+    }
 
     /**
      * 字节数组转16进制字符串

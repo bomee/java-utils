@@ -11,6 +11,11 @@ import static org.junit.Assert.*;
 public class SecuritiesTest {
 
     @Test
+    public void crc32(){
+        assertEquals(3604621417L, Securities.crc32("Securities.crc32".getBytes()));
+    }
+
+    @Test
     public void md5() {
         byte[] bytes = Securities.md5("Securities.md5".getBytes());
         assertEquals("7e6a7b304ba09685378984c2f2271e3d", Bytes.byteToHex(bytes));

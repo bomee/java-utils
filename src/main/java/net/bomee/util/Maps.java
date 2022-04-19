@@ -10,11 +10,13 @@ import java.util.Map;
  * @author bomee shiaupo@qq.com
  */
 public final class Maps {
+    private Maps() {
+    }
 
     /**
      * 安全获取map的类型化值
      * <pre>
-     *  Map<Object, Object> map = Maps.ofBuilder()
+     *  Map&lt;Object, Object&gt; map = Maps.ofBuilder()
      *                 .put("k1", null)
      *                 .put("k2", "v2")
      *                 .put("k3", 0)
@@ -57,7 +59,7 @@ public final class Maps {
      * @param value value
      * @param <K>   key 类型
      * @param <V>   value 类型
-     * @return HashMap<K, V>
+     * @return HashMap&lt;K, V&gt;
      */
     public static <K, V> Map<K, V> of(K key, V value) {
         HashMap<K, V> map = new HashMap<>();
@@ -68,7 +70,7 @@ public final class Maps {
     /**
      * 快速创建一个HashMapBuilder，可链式写入Map
      * <pre>
-     * Map<String, String> map = Maps.<String, String>ofBuilder()
+     * Map&lt;String, String&gt; map = Maps.&lt;String, String&gt;ofBuilder()
      *                 .put("k1", "v1")
      *                 .put("k2", "v2")
      *                 .map();
@@ -76,7 +78,7 @@ public final class Maps {
      *
      * @param <K> key类型
      * @param <V> value 类型
-     * @return HashMapBuilder<K, V>
+     * @return HashMapBuilder&lt;K, V&gt;
      */
     public static <K, V> HashMapBuilder<K, V> ofBuilder() {
         return new HashMapBuilder<>();
@@ -85,7 +87,7 @@ public final class Maps {
     /**
      * 将Map生成一个HashMapBuilder，可链式写入Map
      * <pre>
-     *  Map<String, String> map2 = Maps.ofBuilder(new HashMap<String, String>())
+     *  Map&lt;String, String&gt; map2 = Maps.ofBuilder(new HashMap&lt;String, String&gt;())
      *      .put("k1", "v1")
      *      .put("k2", "v2")
      *      .map();
@@ -93,7 +95,7 @@ public final class Maps {
      *
      * @param <K> key类型
      * @param <V> value 类型
-     * @return HashMapBuilder<K, V>
+     * @return HashMapBuilder&lt;K, V&gt;
      */
     public static <K, V> HashMapBuilder<K, V> ofBuilder(Map<K, V> map) {
         return new HashMapBuilder<>(map);
@@ -121,7 +123,7 @@ public final class Maps {
          *
          * @param key   key
          * @param value value
-         * @return HashMapBuilder<K, V>
+         * @return HashMapBuilder&lt;K, V&gt;
          */
         public HashMapBuilder<K, V> put(K key, V value) {
             map.put(key, value);
@@ -132,7 +134,7 @@ public final class Maps {
          * remove key
          *
          * @param key key
-         * @return HashMapBuilder<K, V>
+         * @return HashMapBuilder&lt;K, V&gt;
          */
         public HashMapBuilder<K, V> remove(K key) {
             map.remove(key);
@@ -142,7 +144,7 @@ public final class Maps {
         /**
          * clear all key
          *
-         * @return HashMapBuilder<K, V>
+         * @return HashMapBuilder&lt;K, V&gt;
          */
         public HashMapBuilder<K, V> clear() {
             map.clear();
@@ -152,7 +154,7 @@ public final class Maps {
         /**
          * 返回原始HashMap
          *
-         * @return Map<K, V>
+         * @return Map&lt;K, V&gt;
          */
         public Map<K, V> map() {
             return map;
@@ -161,7 +163,7 @@ public final class Maps {
         /**
          * 返回不可修改的HashMap
          *
-         * @return Map<K, V>
+         * @return Map&lt;K, V&gt;
          */
         public Map<K, V> unmodifiableMap() {
             return Collections.unmodifiableMap(map);

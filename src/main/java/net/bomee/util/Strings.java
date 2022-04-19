@@ -12,6 +12,9 @@ import java.util.stream.Stream;
  * @author bomee shiaupo@qq.com
  */
 public final class Strings {
+    private Strings() {
+    }
+
     /**
      * 是否为空字符串
      *
@@ -73,8 +76,8 @@ public final class Strings {
         int endOffset = suffix == null ? src.length() : src.indexOf(suffix, startOffset);
 
         return endOffset < startOffset
-                ? null
-                : src.substring(startOffset + (prefix == null ? 0 : prefix.length()), endOffset);
+            ? null
+            : src.substring(startOffset + (prefix == null ? 0 : prefix.length()), endOffset);
     }
 
     /**
@@ -99,8 +102,8 @@ public final class Strings {
         endOffset = suffix == null ? src.length() : src.indexOf(suffix, startOffset);
 
         return startOffset < 0 || endOffset < startOffset
-                ? null
-                : src.substring(startOffset + (prefix == null ? 0 : prefix.length()), endOffset);
+            ? null
+            : src.substring(startOffset + (prefix == null ? 0 : prefix.length()), endOffset);
     }
 
     /**
@@ -112,7 +115,9 @@ public final class Strings {
      * @return 填充后字符串
      */
     public static String paddingStart(String str, int length, char padChar) {
-        return str != null && length > str.length() ? repeat(String.valueOf(padChar), length - str.length()) + str : str;
+        return str != null && length > str.length()
+            ? repeat(String.valueOf(padChar), length - str.length()) + str
+            : str;
     }
 
     /**
@@ -124,7 +129,9 @@ public final class Strings {
      * @return 填充后字符串
      */
     public static String paddingEnd(String str, int length, char padChar) {
-        return str != null && length > str.length() ? str + repeat(String.valueOf(padChar), length - str.length()) : str;
+        return str != null && length > str.length()
+            ? str + repeat(String.valueOf(padChar), length - str.length())
+            : str;
     }
 
     /**
@@ -194,7 +201,9 @@ public final class Strings {
                 break;
             }
         }
-        return str.substring(0, retainPrefixLength) + repeat("*", maskLength) + str.substring(length - retainSuffixLength, length);
+        return str.substring(0, retainPrefixLength)
+            + repeat("*", maskLength)
+            + str.substring(length - retainSuffixLength, length);
     }
 
     /**

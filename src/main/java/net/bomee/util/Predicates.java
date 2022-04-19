@@ -5,7 +5,10 @@ package net.bomee.util;
  *
  * @author bomee shiaupo@qq.com
  */
-public class Predicates {
+public final class Predicates {
+    private Predicates() {
+    }
+
 
     /**
      * null对象检查
@@ -44,7 +47,7 @@ public class Predicates {
      * @throws IllegalArgumentException 不在范围内则抛出异常
      */
     public static void checkRange(int value, int min, int max, String errorMessage) {
-        if (value < min || value >= max) {
+        if (!checkRange(value, min, max)) {
             throw new IllegalArgumentException(errorMessage);
         }
     }

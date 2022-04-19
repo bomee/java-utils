@@ -10,13 +10,15 @@ import java.util.Set;
  * @author bomee shiaupo@qq.com
  */
 public final class Sets {
+    private Sets() {
+    }
 
     /**
      * 根据多个值快速创建一个Set
      *
      * @param elements 值
      * @param <E>      值类型
-     * @return Set<E>
+     * @return Set
      */
     @SafeVarargs
     public static <E> Set<E> of(E... elements) {

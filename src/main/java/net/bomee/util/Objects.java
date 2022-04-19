@@ -14,6 +14,8 @@ import java.util.Map;
  * @author bomee shiaupo@qq.com
  */
 public final class Objects {
+    private Objects() {
+    }
 
     /**
      * 判断一个对象是否为空，当出现以下情况中的一种时返回true
@@ -68,7 +70,9 @@ public final class Objects {
         destFieldMap.forEach((name, destField) -> {
             try {
                 Field srcField = srcFieldMap.get(destField.getName());
-                if (srcField != null && !Modifier.isFinal(destField.getModifiers()) && !Modifier.isStatic(destField.getModifiers())) {
+                if (srcField != null
+                    && !Modifier.isFinal(destField.getModifiers())
+                    && !Modifier.isStatic(destField.getModifiers())) {
                     AccessController.doPrivileged((PrivilegedAction<?>) () -> {
                         destField.setAccessible(true);
                         srcField.setAccessible(true);

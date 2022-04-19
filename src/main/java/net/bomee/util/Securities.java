@@ -1,11 +1,20 @@
 package net.bomee.util;
 
-import javax.crypto.*;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.*;
+import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.KeyFactory;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.zip.CRC32;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.Mac;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Hash/散列，对称加密，非对称加密等安全相关的操作集合
@@ -13,6 +22,9 @@ import java.util.zip.CRC32;
  * @author bomee shiaupo@qq.com
  */
 public final class Securities {
+
+    private Securities() {
+    }
 
     /**
      * CRC32 Checksum

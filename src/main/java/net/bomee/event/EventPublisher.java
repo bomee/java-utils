@@ -2,6 +2,7 @@ package net.bomee.event;
 
 /**
  * EventPublisher
+ *
  * @author bomee shiaupo@qq.com
  */
 public interface EventPublisher {

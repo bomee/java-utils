@@ -3,7 +3,11 @@ package net.bomee.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 反射常用操作集合
@@ -11,12 +15,14 @@ import java.util.*;
  * @author bomee shiaupo@qq.com
  */
 public final class Reflects {
+    private Reflects() {
+    }
 
     /**
      * 获取所有的定义字段(含父类定义)
      *
      * @param clazz Class
-     * @return Map<String, Field>
+     * @return Map{String: Field}
      */
     public static Map<String, Field> getAllDeclaredFields(Class<?> clazz) {
         Map<String, Field> fieldMap = new HashMap<>();

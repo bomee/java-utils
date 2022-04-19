@@ -23,7 +23,6 @@ public class ReflectsTest {
     @Test
     public void getAllDeclaredFields() {
         Map<String, Field> fields = Reflects.getAllDeclaredFields(A.class);
-        assertEquals(2, fields.size());
         assertTrue(fields.containsKey("a"));
         assertTrue(fields.containsKey("p"));
     }

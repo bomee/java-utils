@@ -2,7 +2,11 @@ package net.bomee.util;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -11,6 +15,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author bomee shiaupo@qq.com
  */
 public final class Threads {
+    private Threads() {
+    }
 
     /**
      * A simple lock for lazy create object.
@@ -31,7 +37,7 @@ public final class Threads {
      * 使用CompletableFuture异步执行
      *
      * @param runnable Runnable
-     * @return Future<Void>
+     * @return CompletableFuture
      */
     public static CompletableFuture<Void> runAsync(Runnable runnable) {
         return CompletableFuture.runAsync(runnable);
@@ -41,7 +47,7 @@ public final class Threads {
      * 使用CompletableFuture异步执行并忽略异常
      *
      * @param runnable ExceptionRunnable
-     * @return Future<Void>
+     * @return CompletableFuture
      */
     public static CompletableFuture<Void> runAsyncIgnoreException(ExceptionRunnable runnable) {
         return CompletableFuture.runAsync(() -> {
@@ -63,7 +69,10 @@ public final class Threads {
             synchronized (LOCK) {
                 if (scheduledExecutor == null) {
                     // 可通过Threads.ScheduledExecutor.PoolSize配置调度线程的大小
-                    scheduledExecutor = new ScheduledThreadPoolExecutor(Integer.parseInt(System.getProperty("Threads.ScheduledExecutor.PoolSize", "1")));
+                    scheduledExecutor = new ScheduledThreadPoolExecutor(
+                        Integer.parseInt(System.getProperty("Threads.ScheduledExecutor.PoolSize", "1")),
+                        new NamedThreadFactory("", false)
+                    );
                     registerShutdownHook(() -> {
                         scheduledExecutor.shutdown();
                     });
