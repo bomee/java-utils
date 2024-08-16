@@ -16,13 +16,13 @@ public final class Maps {
     /**
      * 安全获取map的类型化值
      * <pre>
-     *  Map&lt;Object, Object&gt; map = Maps.ofBuilder()
+     *  Map&lt;Object, Object&gt; map = Maps.ofMap()
      *                 .put("k1", null)
      *                 .put("k2", "v2")
      *                 .put("k3", 0)
      *                 .put("k4", true)
      *                 .put("k5", 1.0)
-     *                 .map();
+     *                 .asMap();
      *
      *  Maps.get(map, "k1", String.class);
      *  Maps.get(map, "k2", String.class);
@@ -70,34 +70,34 @@ public final class Maps {
     /**
      * 快速创建一个HashMapBuilder，可链式写入Map
      * <pre>
-     * Map&lt;String, String&gt; map = Maps.&lt;String, String&gt;ofBuilder()
+     * Map&lt;String, String&gt; map = Maps.&lt;String, String&gt;ofMap()
      *                 .put("k1", "v1")
      *                 .put("k2", "v2")
-     *                 .map();
+     *                 .asMap();
      * </pre>
      *
      * @param <K> key类型
      * @param <V> value 类型
      * @return HashMapBuilder&lt;K, V&gt;
      */
-    public static <K, V> HashMapBuilder<K, V> ofBuilder() {
+    public static <K, V> HashMapBuilder<K, V> ofMap() {
         return new HashMapBuilder<>();
     }
 
     /**
      * 将Map生成一个HashMapBuilder，可链式写入Map
      * <pre>
-     *  Map&lt;String, String&gt; map2 = Maps.ofBuilder(new HashMap&lt;String, String&gt;())
+     *  Map&lt;String, String&gt; map2 = Maps.ofMap(new HashMap&lt;String, String&gt;())
      *      .put("k1", "v1")
      *      .put("k2", "v2")
-     *      .map();
+     *      .asMap();
      * </pre>
      *
      * @param <K> key类型
      * @param <V> value 类型
      * @return HashMapBuilder&lt;K, V&gt;
      */
-    public static <K, V> HashMapBuilder<K, V> ofBuilder(Map<K, V> map) {
+    public static <K, V> HashMapBuilder<K, V> ofMap(Map<K, V> map) {
         return new HashMapBuilder<>(map);
     }
 
@@ -156,7 +156,7 @@ public final class Maps {
          *
          * @return Map&lt;K, V&gt;
          */
-        public Map<K, V> map() {
+        public Map<K, V> asMap() {
             return map;
         }
 
