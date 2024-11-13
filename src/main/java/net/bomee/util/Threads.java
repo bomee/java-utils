@@ -2,11 +2,7 @@ package net.bomee.util;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -60,7 +56,7 @@ public final class Threads {
     }
 
     /**
-     * 获取全局的ScheduledExecutorService
+     * 获取全局的ScheduledExecutorService, 默认的 Thread Pool Size 为 1，请勿使用执行长任务，主要用于Schedule。
      *
      * @return ScheduledExecutorService
      */
@@ -70,8 +66,8 @@ public final class Threads {
                 if (scheduledExecutor == null) {
                     // 可通过Threads.ScheduledExecutor.PoolSize配置调度线程的大小
                     scheduledExecutor = new ScheduledThreadPoolExecutor(
-                        Integer.parseInt(System.getProperty("Threads.ScheduledExecutor.PoolSize", "1")),
-                        new NamedThreadFactory("", false)
+                            Integer.parseInt(System.getProperty("Threads.ScheduledExecutor.PoolSize", "1")),
+                            newNamedThreadFactory("G.S.T-", false)
                     );
                     registerShutdownHook(() -> {
                         scheduledExecutor.shutdown();
@@ -128,9 +124,21 @@ public final class Threads {
     }
 
     private static class NamedThreadFactory implements ThreadFactory {
+        /**
+         * Thread name prefix.
+         */
         private final String prefix;
+        /**
+         * Whether is daemon.
+         */
         private final boolean daemon;
+        /**
+         * ThreadGroup.
+         */
         private final ThreadGroup group;
+        /**
+         * Thread Counter.
+         */
         private final AtomicInteger counter = new AtomicInteger(0);
 
         private NamedThreadFactory(String prefix, boolean daemon) {

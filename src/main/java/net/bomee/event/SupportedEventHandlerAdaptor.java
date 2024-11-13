@@ -26,10 +26,21 @@ class SupportedEventHandlerAdaptor<E extends Event> {
         this.supportClazz = genericTypes.length == 1 ? genericTypes[0] : Event.class;
     }
 
+    /**
+     * Get delegate EventHandler.
+     *
+     * @return Delegate EventHandler
+     */
     public EventHandler<E> getEventHandler() {
         return delegate;
     }
 
+    /**
+     * Whether support Event.
+     *
+     * @param event Event
+     * @return true if support
+     */
     public boolean support(Event event) {
         return event.getClass().equals(supportClazz);
     }

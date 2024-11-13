@@ -2,9 +2,9 @@ package net.bomee.util;
 
 import org.junit.Test;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.concurrent.Future;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.junit.Assert.assertEquals;
@@ -15,33 +15,34 @@ public class ThreadsTest {
     @Test
     public void runAsync() {
         Threads.runAsync(() -> {
-            try {
-                byte[] bytes = "abc".getBytes("UTF-8");
-                System.out.println(Arrays.toString(bytes));
-            } catch (UnsupportedEncodingException ignored) {
-
-            }
+            byte[] bytes = "abc".getBytes(StandardCharsets.UTF_8);
+            System.out.println(Arrays.toString(bytes));
         });
     }
 
     @Test
     public void runAsyncIgnoreException() {
         Threads.runAsyncIgnoreException(() -> {
-            byte[] bytes = "abc".getBytes("UTF-8");
+            byte[] bytes = "abc".getBytes(StandardCharsets.UTF_8);
             System.out.println(Arrays.toString(bytes));
         });
     }
 
     @Test
     public void runAsyncAfter() throws InterruptedException {
+        long delayMS = 10 * 1000;
         final AtomicLong execTime = new AtomicLong(0);
         long now = System.currentTimeMillis();
+
+        CountDownLatch latch = new CountDownLatch(1);
+
         Threads.runAsyncAfter(() -> {
             execTime.set(System.currentTimeMillis());
-        }, 2000);
+            latch.countDown();
+        }, delayMS);
         assertEquals(0, execTime.get());
 
-        Thread.sleep(2500);
-        assertTrue(execTime.get() - now >= 2000);
+        latch.await();
+        assertTrue(execTime.get() - now >= delayMS);
     }
 }
