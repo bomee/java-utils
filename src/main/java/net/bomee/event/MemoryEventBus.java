@@ -1,5 +1,6 @@
 package net.bomee.event;
 
+import net.bomee.pattern.sorted.Ordered;
 import net.bomee.util.Threads;
 
 import java.util.LinkedList;

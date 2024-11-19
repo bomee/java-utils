@@ -1,6 +1,7 @@
 package net.bomee.event;
 
 import lombok.Getter;
+import net.bomee.pattern.sorted.Ordered;
 import org.junit.Test;
 
 import java.util.ArrayList;

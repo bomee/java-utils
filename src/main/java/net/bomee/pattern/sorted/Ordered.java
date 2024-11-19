@@ -1,4 +1,4 @@
-package net.bomee.event;
+package net.bomee.pattern.sorted;
 
 /**
  * 排序接口
@@ -10,7 +10,7 @@ public interface Ordered {
     /**
      * 高优先级
      */
-    int HIGH_PRIORITY = Integer.MIN_VALUE;
+    int HIGH_PRIORITY = -1000;
 
     /**
      * 普通优先级
@@ -20,7 +20,7 @@ public interface Ordered {
     /**
      * 低优先级
      */
-    int LOW_PRIORITY = Integer.MAX_VALUE;
+    int LOW_PRIORITY = 1000;
 
     /**
      * 获取顺序, 数字越低优先级越高
