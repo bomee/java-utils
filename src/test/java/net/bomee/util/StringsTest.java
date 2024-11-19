@@ -107,4 +107,30 @@ public class StringsTest {
         assertEquals("bomee", Strings.regexSubstring("I'm (\\w+)\\b", "I'm bomee"));
         assertEquals("18", Strings.regexSubstring(" (\\d+) years", "I am 18 years old."));
     }
+
+    @Test
+    public void testPrintTable() {
+        assertEquals(
+                "+============+===+\n" +
+                        "|name        |age|\n" +
+                        "+============+===+\n" +
+                        "|bomee       |18 |\n" +
+                        "+------------+---+\n" +
+                        "|bomee's boy |2  |\n" +
+                        "+------------+---+\n" +
+                        "|bomee's girl|9  |\n" +
+                        "+------------+---+\n" +
+                        "|bomee's wife|18 |\n" +
+                        "+------------+---+\n" +
+                        "|null        |   |\n" +
+                        "+------------+---+\n",
+                Strings.toTableFormat(new String[]{"name", "age"}, new Object[][]{
+                        {"bomee", 18},
+                        {"bomee's boy", 2},
+                        {"bomee's girl", 9},
+                        {"bomee's wife", 18},
+                        {null}
+                })
+        );
+    }
 }

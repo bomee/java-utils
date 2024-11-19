@@ -76,8 +76,8 @@ public final class Strings {
         int endOffset = suffix == null ? src.length() : src.indexOf(suffix, startOffset);
 
         return endOffset < startOffset
-            ? null
-            : src.substring(startOffset + (prefix == null ? 0 : prefix.length()), endOffset);
+                ? null
+                : src.substring(startOffset + (prefix == null ? 0 : prefix.length()), endOffset);
     }
 
     /**
@@ -102,8 +102,8 @@ public final class Strings {
         endOffset = suffix == null ? src.length() : src.indexOf(suffix, startOffset);
 
         return startOffset < 0 || endOffset < startOffset
-            ? null
-            : src.substring(startOffset + (prefix == null ? 0 : prefix.length()), endOffset);
+                ? null
+                : src.substring(startOffset + (prefix == null ? 0 : prefix.length()), endOffset);
     }
 
     /**
@@ -116,8 +116,8 @@ public final class Strings {
      */
     public static String paddingStart(String str, int length, char padChar) {
         return str != null && length > str.length()
-            ? repeat(String.valueOf(padChar), length - str.length()) + str
-            : str;
+                ? repeat(String.valueOf(padChar), length - str.length()) + str
+                : str;
     }
 
     /**
@@ -130,8 +130,8 @@ public final class Strings {
      */
     public static String paddingEnd(String str, int length, char padChar) {
         return str != null && length > str.length()
-            ? str + repeat(String.valueOf(padChar), length - str.length())
-            : str;
+                ? str + repeat(String.valueOf(padChar), length - str.length())
+                : str;
     }
 
     /**
@@ -202,8 +202,8 @@ public final class Strings {
             }
         }
         return str.substring(0, retainPrefixLength)
-            + repeat("*", maskLength)
-            + str.substring(length - retainSuffixLength, length);
+                + repeat("*", maskLength)
+                + str.substring(length - retainSuffixLength, length);
     }
 
     /**
@@ -229,5 +229,70 @@ public final class Strings {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(content);
         return matcher.find() ? matcher.group(group) : null;
+    }
+
+    /**
+     * 输出为表格格式字符串
+     * <pre>
+     * +========+========+
+     * |header1 |header2 |
+     * +========+========+
+     * |row1-1  |row1-2  |
+     * +--------+--------+
+     * </pre>
+     *
+     * @param colNames 列名数组
+     * @param data     数据数组
+     * @return 表格格式字符串
+     */
+    public static String toTableFormat(String[] colNames, Object[][] data) {
+        // calc column width
+        int[] colWidths = new int[colNames.length];
+        for (int i = 0; i < colNames.length; i++) {
+            colWidths[i] = colNames[i].length();
+            for (Object[] row : data) {
+                if (i >= row.length) {
+                    continue;
+                }
+                colWidths[i] = Math.max(colWidths[i], java.util.Objects.toString(row[i]).length());
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+
+        TableLine tableLine = (padChar) -> {
+            sb.append('+');
+            for (int colWidth : colWidths) {
+                sb.append(repeat(String.valueOf(padChar), colWidth)).append('+');
+            }
+            sb.append('\n');
+        };
+
+        TableRow tableRow = (row) -> {
+            sb.append('|');
+            for (int i = 0; i < colWidths.length; i++) {
+                sb.append(paddingEnd(i >= row.length ? "" : java.util.Objects.toString(row[i]), colWidths[i], ' ')).append("|");
+            }
+            sb.append('\n');
+        };
+        // draw header
+        tableLine.draw('=');
+        tableRow.draw(colNames);
+        tableLine.draw('=');
+        // draw body
+        for (Object[] row : data) {
+            tableRow.draw(row);
+            tableLine.draw('-');
+        }
+        return sb.toString();
+    }
+
+    @FunctionalInterface
+    interface TableLine {
+        void draw(char padChar);
+    }
+
+    @FunctionalInterface
+    interface TableRow {
+        void draw(Object[] row);
     }
 }
