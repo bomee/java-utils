@@ -1,7 +1,7 @@
 package net.bomee.util;
 
 /**
- * Number累 常用操作集合
+ * Number 常用操作集合
  *
  * @author bomee shiaupo@qq.com
  */

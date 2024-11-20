@@ -2,6 +2,8 @@ package net.bomee.pattern.chain;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class OrderedHandlerChainTest {
 
@@ -34,6 +36,7 @@ class BContextHandler implements Handler<MapContext> {
 class BizHandler implements Handler<MapContext> {
     @Override
     public void handle(MapContext context) throws HandleException {
-        context.put("C", "C");
+        assertEquals("A", context.get("A"));
+        assertEquals("B", context.get("B"));
     }
 }

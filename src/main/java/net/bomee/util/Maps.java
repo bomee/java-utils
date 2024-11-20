@@ -107,7 +107,7 @@ public final class Maps {
      * @param <K> key 类型
      * @param <V> value 类型
      */
-    static class HashMapBuilder<K, V> {
+    public static class HashMapBuilder<K, V> {
         private final Map<K, V> map;
 
         HashMapBuilder(Map<K, V> map) {
